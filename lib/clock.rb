@@ -5,6 +5,9 @@ class Clock
     if hour >= 24 || min >= 60 || sec >= 60
       raise ArgumentError
     end
+    if hour < 0 || min < 0 || sec < 0
+      raise ArgumentError
+    end
     @hour = hour
     @min = min
     @sec = sec

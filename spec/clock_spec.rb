@@ -19,4 +19,9 @@ describe Clock do
   context "new(12, 30, 60)" do
     specify { expect{ Clock.new(12, 30, 60) }.to raise_error(ArgumentError) }
   end
+
+  # exception test #2
+  context "new(12, 30, -20)" do
+    specify { expect{ Clock.new(12, 30, -20) }.to raise_error(ArgumentError) }
+  end
 end
