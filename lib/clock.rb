@@ -2,17 +2,21 @@ class Clock
   attr_reader :hour, :min, :sec
 
   def initialize(hour, min, sec)
-    if hour >= 24 || min >= 60 || sec >= 60
+    @hour = verify_valid_clock_input(hour, 24)
+    @min  = verify_valid_clock_input(min, 60)
+    @sec  = verify_valid_clock_input(sec, 60)
+  end
+  
+  private 
+  def verify_valid_clock_input(val, max)
+    if (0...max).include?(val)
+      return val
+    else
       raise ArgumentError
     end
-    if hour < 0 || min < 0 || sec < 0
-      raise ArgumentError
-    end
-    @hour = hour
-    @min = min
-    @sec = sec
   end
 end
+
 
 if __FILE__ == $0
   clock = Clock.new(12, 30 ,60)
