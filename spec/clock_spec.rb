@@ -31,9 +31,19 @@ describe Clock do
   # time test
   describe "#to_time" do
     let(:clock) { Clock.new(10, 20, 0) }
-    let(:time) { clock.to_time(Date.today) }
-    specify do
-      expect(time.iso8601).to eq "2016-12-19T10:20:00+09:00"
+
+    context "(Time.today)" do
+      let(:time) { clock.to_time(Date.new(2016, 12, 19)) }
+      specify do
+        expect(time.iso8601).to eq "2016-12-19T10:20:00+09:00"
+      end
+    end
+
+    context "(2016-08-01)" do
+      let(:time) { clock.to_time(Date.new(2016, 8, 1)) }
+      specify do
+        expect(time.iso8601).to eq "2016-08-01T10:20:00+09:00"
+      end
     end
   end
 end

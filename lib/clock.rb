@@ -8,7 +8,7 @@ class Clock
   end
 
   def to_time(date)
-    Time.local(2016, 12, 19, 10, 20, 00)
+    Time.local(date.year, date.month, date.day, @hour, @min, @sec)
   end
   
   private 
