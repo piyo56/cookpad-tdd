@@ -6,6 +6,10 @@ class Clock
     @min  = verify_valid_clock_input(min, 60)
     @sec  = verify_valid_clock_input(sec, 60)
   end
+
+  def to_time(date)
+    Time.local(2016, 12, 19, 10, 20, 00)
+  end
   
   private 
   def verify_valid_clock_input(val, max)

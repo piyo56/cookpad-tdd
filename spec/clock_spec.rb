@@ -17,7 +17,7 @@ describe Clock do
     end
   end
   
-  # exception test #1
+  # exception test
   describe "Argument Tests" do
     context "Big value" do 
       specify { expect{ Clock.new(12, 30, 60) }.to raise_error(ArgumentError) }
@@ -25,6 +25,15 @@ describe Clock do
     
     context "negative value" do 
       specify { expect{ Clock.new(12, 30, -20) }.to raise_error(ArgumentError) }
+    end
+  end
+
+  # time test
+  describe "#to_time" do
+    let(:clock) { Clock.new(10, 20, 0) }
+    let(:time) { clock.to_time(Date.today) }
+    specify do
+      expect(time.iso8601).to eq "2016-12-19T10:20:00+09:00"
     end
   end
 end
