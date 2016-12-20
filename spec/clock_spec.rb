@@ -88,20 +88,50 @@ describe Clock do
           eq "2016-12-21T10:20:00+09:00"
       end
     end
+  end
 
+  describe "#previous_time（曜日指定無し）" do
 
-    # context "next time3" do
-    #   specify do 
-    #     expect(clock_10_20.next_time(time_8_12, 3).iso8601).to \
-    #       eq "2016-08-17T10:20:00+09:00"
-    #   end
-    # end
-    #
-    # context "next time4" do
-    #   specify do 
-    #     expect(clock_10_20.next_time(time_12_19, 1).iso8601).to \
-    #       eq "2016-08-17T10:20:00+09:00"
-    #   end
-    # end
+    context "昨日の10:20となる場合" do
+      let(:time){ Time.local(2016, 12, 22, 9, 20, 0) }
+      specify do 
+        expect(clock_10_20.previous_time(time).iso8601).to \
+          eq "2016-12-21T10:20:00+09:00"
+      end
+    end
+    context "今日の10:20となる場合" do
+      let(:time){ Time.local(2016, 12, 21, 11, 20, 0) }
+      specify do 
+        expect(clock_10_20.previous_time(time).iso8601).to \
+          eq "2016-12-21T10:20:00+09:00"
+      end
+    end
+  end
+
+  describe "#previous_time（曜日指定有り）" do
+
+    context "前の水(3)の10:20となる場合1" do
+      let(:time){ Time.local(2016, 12, 28, 9, 20, 0) }
+      specify do 
+        expect(clock_10_20.previous_time(time, 3).iso8601).to \
+          eq "2016-12-21T10:20:00+09:00"
+      end
+    end
+    
+    context "次の水(3)の10:20となる場合2" do
+      let(:time){ Time.local(2016, 12, 23, 11, 20, 0) }
+      specify do
+        expect(clock_10_20.previous_time(time, 3).iso8601).to \
+          eq "2016-12-21T10:20:00+09:00"
+      end
+    end
+
+    context "今日の10:20となる場合" do
+      let(:time){ Time.local(2016, 12, 21, 11, 20, 0) }
+      specify do 
+        expect(clock_10_20.previous_time(time, 3).iso8601).to \
+          eq "2016-12-21T10:20:00+09:00"
+      end
+    end
   end
 end

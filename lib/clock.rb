@@ -17,14 +17,22 @@ class Clock
     a_day = 60 * 60 * 24
     (0..7).each do |i|
       clock_time += a_day if i != 0
-      if (wday == -1 || clock_time.wday == wday) && time < clock_time
+      if (wday == -1 || clock_time.wday == wday) && clock_time > time
         return clock_time
       end
     end
   end
 
-  def previous_time(time)
-    return time - (60 * 60 * 24)
+  def previous_time(time, wday = -1)
+    clock_time= Time.local(time.year, time.month, time.day, @hour, @min, @sec)
+
+    a_day = 60 * 60 * 24
+    (0..7).each do |i|
+      clock_time -= a_day if i != 0
+      if (wday == -1 || clock_time.wday == wday) && clock_time < time
+        return clock_time
+      end
+    end
   end
   
   private 
