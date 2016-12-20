@@ -12,21 +12,12 @@ class Clock
   end
 
   def next_time(time, wday = -1)
-    all_wdays = (1..7).to_a
     clock_time= Time.local(time.year, time.month, time.day, @hour, @min, @sec)
-    
-    # 与えられれたtimeと同日の場合
-    if wday == -1 || clock_time.wday == time.wday
-      if time < clock_time
-        return clock_time
-      end
-    end
-    
-    # それ以降の場合
+
     a_day = 60 * 60 * 24
-    7.times do
-      clock_time += a_day
-      if wday == -1 || clock_time.wday == wday
+    (0..7).each do |i|
+      clock_time += a_day if i != 0
+      if (wday == -1 || clock_time.wday == wday) && time < clock_time
         return clock_time
       end
     end
