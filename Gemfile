@@ -2,5 +2,5 @@
 source "https://rubygems.org"
 
 # gem "rails"
-gem  "rspec"
-gem 'pry-byebug'
+gem "rspec"
+gem "pry-byebug"
