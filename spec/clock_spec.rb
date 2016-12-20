@@ -43,61 +43,65 @@ describe Clock do
         expect(time.iso8601).to eq "2016-08-01T10:20:00+09:00"
       end
     end
+  end
 
-    let(:time_12_19) { Time.local(2016, 12, 19, 10, 20, 0) }
-    let(:time_12_31) { Time.local(2016, 12, 31, 10, 20, 0) }
-    let(:time_1_1) { Time.local(2017, 1, 1, 10, 20, 0) }
+  describe "#next_time（曜日指定無し）" do
 
-    context "next time1" do
+    context "明日の10:20となる場合" do
+      let(:time){ Time.local(2016, 12, 19, 11, 20, 0) }
       specify do 
-        expect(clock_10_20.next_time(time_12_19).iso8601).to \
+        expect(clock_10_20.next_time(time).iso8601).to \
           eq "2016-12-20T10:20:00+09:00"
       end
     end
-
-    context "next time2" do
+    context "今日の10:20となる場合" do
+      let(:time){ Time.local(2016, 12, 19, 9, 20, 0) }
       specify do 
-        expect(clock_10_20.next_time(time_12_31).iso8601).to \
-          eq "2017-01-01T10:20:00+09:00"
+        expect(clock_10_20.next_time(time).iso8601).to \
+          eq "2016-12-19T10:20:00+09:00"
+      end
+    end
+  end
+
+  describe "#next_time（曜日指定有り）" do
+
+    context "次の水(3)の10:20となる場合1" do
+      let(:time){ Time.local(2016, 12, 21, 11, 20, 0) }
+      specify do 
+        expect(clock_10_20.next_time(time, 3).iso8601).to \
+          eq "2016-12-28T10:20:00+09:00"
+      end
+    end
+    
+    context "次の水(3)の10:20となる場合2" do
+      let(:time){ Time.local(2016, 12, 23, 11, 20, 0) }
+      specify do
+        expect(clock_10_20.next_time(time, 3).iso8601).to \
+          eq "2016-12-28T10:20:00+09:00"
       end
     end
 
-    context "previous time1" do
+    context "今日の10:20となる場合" do
+      let(:time){ Time.local(2016, 12, 21, 9, 20, 0) }
       specify do 
-        expect(clock_10_20.previous_time(time_12_19).iso8601).to \
-          eq "2016-12-18T10:20:00+09:00"
-      end
-    end
-
-    context "previous time2" do
-      specify do 
-        expect(clock_10_20.previous_time(time_1_1).iso8601).to \
-          eq "2016-12-31T10:20:00+09:00"
-      end
-    end
-
-    context "next_wday1" do
-      let(:time) { Time.local( 2016, 12, 19, 12, 30, 0 ) }
-      specify do 
-        expect(clock_10_20.next_wday(time, "Wed", 10, 20).iso8601).to \
+        expect(clock_10_20.next_time(time, 3).iso8601).to \
           eq "2016-12-21T10:20:00+09:00"
       end
     end
 
-    context "next_wday2" do
-      let(:time) { Time.local( 2016, 12, 22, 12, 30, 0 ) }
-      specify do 
-        expect(clock_10_20.next_wday(time, "Thu", 14, 20).iso8601).to \
-          eq "2016-12-22T14:20:00+09:00"
-      end
-    end
 
-    context "next_wday3" do
-      let(:time) { Time.local( 2016, 12, 22, 12, 30, 0 ) }
-      specify do 
-        expect(clock_10_20.next_wday(time, "Thu", 10, 20).iso8601).to \
-          eq "2016-12-29T10:20:00+09:00"
-      end
-    end
+    # context "next time3" do
+    #   specify do 
+    #     expect(clock_10_20.next_time(time_8_12, 3).iso8601).to \
+    #       eq "2016-08-17T10:20:00+09:00"
+    #   end
+    # end
+    #
+    # context "next time4" do
+    #   specify do 
+    #     expect(clock_10_20.next_time(time_12_19, 1).iso8601).to \
+    #       eq "2016-08-17T10:20:00+09:00"
+    #   end
+    # end
   end
 end
